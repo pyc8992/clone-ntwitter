@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { dbService } from '../fbase';
+import { dbService, storageService } from '../fbase';
 
 const Nweet = ({ nweetObj, isOwner }) => {
   const [editing, setEditing] = useState(false);
@@ -11,6 +11,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
     if (ok) {
       //delete nweet
       await dbService.doc(`nweets/${nweetObj.id}`).delete();
+      await storageService.refFromURL(nweetObj.attachementUrl).delete();
     }
   }
 
@@ -45,6 +46,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
         :
          <>
          <h4>{nweetObj.text}</h4>
+         { nweetObj.attachementUrl && <img src={nweetObj.attachementUrl} width="50px" height="50px" />}
          { isOwner && <>
          <button onClick={onDeleteClick}>Delete Nweet</button>
          <button onClick={toggleEditing}>Edit Nweet</button>
