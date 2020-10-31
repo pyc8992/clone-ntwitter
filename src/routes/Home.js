@@ -6,7 +6,7 @@ import { dbService, storageService } from "../fbase";
 const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
-  const [attachement, setAttachement] = useState();
+  const [attachement, setAttachement] = useState("");
 
   // const getNweets = async () => {
   //   const dbNweets = await dbService.collection("nweets").get();
